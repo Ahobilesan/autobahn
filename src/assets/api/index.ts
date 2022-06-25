@@ -59,7 +59,7 @@ export default {
     },
     create: async function (post: POST) {
         try {
-            await fetch(`${Rest}posts`,
+            let res = await fetch(`${Rest}posts`,
                 {
                     method: 'POST',
                     headers: {
@@ -69,7 +69,8 @@ export default {
                 }
             );
             return {
-                error: false
+                error: false,
+                data: await res.json()
             }
         } catch (error) {
             console.log("Error from API Create Method", error)
@@ -81,7 +82,13 @@ export default {
     },
     update: async function (post: POST) {
         try {
-            await fetch(`${Rest}posts`,
+            if (!post.id) {
+                return {
+                    error: true,
+                    msg: "Invalid Argument"
+                }
+            }
+            let res = await fetch(`${Rest}posts/${post.id}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -91,7 +98,8 @@ export default {
                 }
             );
             return {
-                error: false
+                error: false,
+                data: await res.json()
             }
         } catch (error) {
             console.log("Error from API Update Method", error)
