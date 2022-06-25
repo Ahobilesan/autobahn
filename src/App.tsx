@@ -13,6 +13,9 @@ import Navbar from "./components/navbar"
 import Drawer from "./components/drawer"
 import Loader from './components/loader';
 import List from "./components/list";
+import Modal from "./components/modal-form";
+import AckModal from "./components/modal-ack";
+
 import { Box } from '@mui/material';
 
 class App extends React.Component {
@@ -27,13 +30,14 @@ class App extends React.Component {
           <Drawer open={state.openDrawer} />
           <List data={state.post} />
         </Box>}
+        {state && state.modalData && <Modal data={state.modalData} open={state.openModal} />}
+        {state && state.modalData && <AckModal data={state.modalData} open={state.openAckModal} />}
       </div>
     );
   }
 
   componentDidMount() {
-    let tempFunc = () => { console.log("state changed"); this.forceUpdate() }
-    store.subscribe(tempFunc.bind(this));
+    store.subscribe(this.forceUpdate.bind(this));
 
     this.getAllPost()
   }
