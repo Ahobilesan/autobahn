@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+import ForumIcon from '@mui/icons-material/Forum';
 import Toolbar from '@mui/material/Toolbar';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import PhotoSizeSelectActualIcon from '@mui/icons-material/PhotoSizeSelectActual';
@@ -36,15 +36,15 @@ export default function ResponsiveDrawer(props: Props) {
             <Toolbar />
             <Divider />
             <List>
-                <ListItem key="Posts" disablePadding>
+                <ListItem key="Posts" disablePadding selected>
                     <ListItemButton>
                         <ListItemIcon>
-                            <MailIcon />
+                            <ForumIcon />
                         </ListItemIcon>
                         <ListItemText primary="Posts" />
                     </ListItemButton>
                 </ListItem>
-                <ListItem key="Todos" disablePadding>
+                <ListItem key="Todos" disablePadding disabled>
                     <ListItemButton>
                         <ListItemIcon>
                             <ListAltIcon />
@@ -52,7 +52,7 @@ export default function ResponsiveDrawer(props: Props) {
                         <ListItemText primary="Todos" />
                     </ListItemButton>
                 </ListItem>
-                <ListItem key="Photos" disablePadding>
+                <ListItem key="Photos" disablePadding disabled>
                     <ListItemButton>
                         <ListItemIcon>
                             <PhotoSizeSelectActualIcon />
