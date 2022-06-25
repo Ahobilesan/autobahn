@@ -26,7 +26,6 @@ export default function FormDialog({ data, open }: { data: POST, open: boolean }
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(title, event.target.value, event.target.name)
         if (event.target.name === "description") {
             setDescription(event.target.value)
         } else {

@@ -10,7 +10,6 @@ const initialState = {
 }
 
 const reducer = (baseState = initialState, action: any) => {
-    console.log('reducer', action)
     switch (action.type) {
         case actions.SET_PRIME_LOADER: {
             return {
