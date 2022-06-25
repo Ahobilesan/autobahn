@@ -1,13 +1,16 @@
 import * as actions from './actions'
 
 const initialState = {
+    openModal: false,
+    openAckModal: false,
     openDrawer: false,
     primeloader: true,
-    notification: []
+    notification: [],
+    modalData: {}
 }
 
 const reducer = (baseState = initialState, action: any) => {
-    console.log('reducer', actions)
+    console.log('reducer', action)
     switch (action.type) {
         case actions.SET_PRIME_LOADER: {
             return {
@@ -28,8 +31,25 @@ const reducer = (baseState = initialState, action: any) => {
                 primeloader: false
             }
         }
-        default:
-            break;
+        case actions.SET_MODAL: {
+            return {
+                ...baseState,
+                modalData: action.data.post,
+                openModal: action.data.open
+            }
+        }
+        case actions.SET_ACK_MODAL: {
+            return {
+                ...baseState,
+                modalData: action.data.post,
+                openAckModal: action.data.open
+            }
+        }
+        default: {
+            return {
+                ...baseState
+            }
+        }
     }
 }
 
