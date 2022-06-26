@@ -49,11 +49,7 @@ class App extends React.Component {
     } else {
       await store.dispatch({ type: actions.SET_POST, data: [] })
     }
-
   }
 }
 
 export default App;
-
-//For Testing
-(window as any).API = API;
