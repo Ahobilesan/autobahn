@@ -28,7 +28,7 @@ export default function ResponsiveDrawer(props: Props) {
 
     const handleDrawerToggle = async () => {
         const state = store.getState()
-        await store.dispatch({ type: actions.SET_DRAWER, data: !state.openDrawer })
+        await store.dispatch({ type: actions.SET_DRAWER, data: !state.root.openDrawer })
     };
 
     const drawer = (

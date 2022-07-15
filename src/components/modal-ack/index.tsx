@@ -29,13 +29,13 @@ export default function AakModal({ data, open }: { data: POST, open: boolean }) 
 
     const handleClose = async () => {
         const state = store.getState()
-        await store.dispatch({ type: actions.SET_ACK_MODAL, data: !state.openModal })
+        await store.dispatch({ type: actions.SET_ACK_MODAL, data: !state.root.openModal })
     };
 
     const deletePost = async (e: any) => {
         setBusy(true)
 
-        const posts = [...store.getState().post];
+        const posts = [...store.getState().post.posts];
         let res = await API.delete(data.id)
 
         if (res.error !== true) {

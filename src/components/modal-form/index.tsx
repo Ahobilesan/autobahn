@@ -22,7 +22,7 @@ export default function FormDialog({ data, open }: { data: POST, open: boolean }
     const handleClose = async (_?: any, reason?: string) => {
         if (reason) return;
         const state = store.getState()
-        await store.dispatch({ type: actions.SET_MODAL, data: !state.openModal })
+        await store.dispatch({ type: actions.SET_MODAL, data: !state.root.openModal })
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +40,7 @@ export default function FormDialog({ data, open }: { data: POST, open: boolean }
         post.title = title ? title : post.title;
         post.body = description ? description : post.body;
 
-        const posts = [...store.getState().post];
+        const posts = [...store.getState().post.posts];
         let res;
         if (data.id) {
             res = await API.update(post)
