@@ -1,12 +1,11 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
-
-import API from "./assets/api/";
 
 //redux
 import { store } from "./redux/store";
-import * as actions from './redux/actions';
+import { fetchAllPost } from './slices/saga';
 
 //component
 import Navbar from "./components/navbar"
@@ -18,38 +17,29 @@ import AckModal from "./components/modal-ack";
 
 import { Box } from '@mui/material';
 
-class App extends React.Component {
 
-  render() {
-    const state = store.getState()
-    return (
-      <div className="App">
-        {(!state || state.primeloader) && <Loader />}
-        {state && state.post && <Box sx={{ display: 'flex' }}>
-          <Navbar />
-          <Drawer open={state.openDrawer} />
-          <List data={state.post} />
-        </Box>}
-        {state && state.modalData && <Modal data={state.modalData} open={state.openModal} />}
-        {state && state.modalData && <AckModal data={state.modalData} open={state.openAckModal} />}
-      </div>
-    );
-  }
+const state = store.getState();
 
-  componentDidMount() {
-    store.subscribe(this.forceUpdate.bind(this));
+function App() {
 
-    this.getAllPost()
-  }
+  const dispatch = useDispatch()
 
-  async getAllPost() {
-    let posts = await API.getAll();
-    if (posts.error === false) {
-      await store.dispatch({ type: actions.SET_POST, data: posts.data })
-    } else {
-      await store.dispatch({ type: actions.SET_POST, data: [] })
-    }
-  }
+  useEffect(() => {
+    dispatch(fetchAllPost());
+  })
+
+  return (
+    <div className="App">
+      {(!state || state.root.primeloader) && <Loader />}
+      {state && state.post && <Box sx={{ display: 'flex' }}>
+        <Navbar />
+        <Drawer open={state.root.openDrawer} />
+        <List data={state.post.posts} />
+      </Box>}
+      {state && state.root.modalData && <Modal data={state.root.modalData} open={state.root.openModal} />}
+      {state && state.root.modalData && <AckModal data={state.root.modalData} open={state.root.openAckModal} />}
+    </div>
+  );
 }
 
 export default App;
