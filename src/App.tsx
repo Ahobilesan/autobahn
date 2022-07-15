@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.css';
 
@@ -17,16 +17,17 @@ import AckModal from "./components/modal-ack";
 
 import { Box } from '@mui/material';
 
-
-const state = store.getState();
-
 function App() {
-
+  const [state, updateState] = useState(store.getState());
   const dispatch = useDispatch()
+
+  const forceUpdate = () => updateState(store.getState())
+  store.subscribe(forceUpdate)
 
   useEffect(() => {
     dispatch(fetchAllPost());
-  })
+    updateState(store.getState())
+  }, [dispatch])
 
   return (
     <div className="App">
